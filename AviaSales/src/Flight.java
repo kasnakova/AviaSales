@@ -7,4 +7,5 @@ public class Flight {
 	private int number;
 	private double cost;
 	private int numberOfFreePlaces;
+	
 }
