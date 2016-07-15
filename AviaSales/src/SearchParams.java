@@ -4,6 +4,8 @@ import java.time.LocalDate;
  * @author ildarworld
  *
  */
+
+
 public class SearchParams {
 	String fromAirport;
 	String toAirport;
@@ -12,4 +14,7 @@ public class SearchParams {
 	boolean returnFlight;
 	int personCount;
 	
+	public SearchParams(){
+		
+	}
 }
