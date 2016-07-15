@@ -14,7 +14,7 @@ public class SearchParams {
 	boolean returnFlight;
 	int personCount;
 	
-	public SearchParams(String fromAirport){
+	public SearchParams(){
 		
 	}
 	
