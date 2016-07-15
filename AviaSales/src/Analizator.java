@@ -11,7 +11,7 @@ public class Analizator {
 	 * @param flights the available flights
 	 * @return
 	 */
-	int i;
+	
 	public static ArrayList<Route> searchFlights(SearchParams sp, ArrayList<Flight> flights){
 		return null;
 	}
