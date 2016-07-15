@@ -2,7 +2,7 @@ import java.time.LocalDate;
 /**
  * Search information for finding suitable routes
  * @author ildarworld
- *
+ *****
  */
 
 
@@ -14,7 +14,9 @@ public class SearchParams {
 	boolean returnFlight;
 	int personCount;
 	
-	public SearchParams(){
+	public SearchParams(String fromAirport){
 		
 	}
+	
+	
 }
