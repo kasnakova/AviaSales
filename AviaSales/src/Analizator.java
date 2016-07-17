@@ -84,8 +84,7 @@ public class Analizator {
 			if ((f.getDep() == sp.getDep()) && (f.getDepTime().toLocalDate().isEqual(sp.getDepDate()))) {
 				if (f.isEndFlight(sp)) {
 
-					Route route = new Route(currentRouteList);
-					route.flights.add(f);
+					Route route = new Route(f);
 					result.add(route);
 				} else {
 					suitableFlights.add(f);

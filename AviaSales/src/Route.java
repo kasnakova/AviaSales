@@ -15,6 +15,10 @@ public class Route {
 	public Route(ArrayList<Flight> flights) {
 		calculateTotalCost();
 	}
+	public Route(Flight flight) {
+		flights.add(flight);
+		calculateTotalCost();
+	}
 
 	public double getPrice() {
 

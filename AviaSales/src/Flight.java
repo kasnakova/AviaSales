@@ -15,6 +15,16 @@ public class Flight {
 	private LocalDateTime depTime;
 	private LocalDateTime arrTime;
 	
+	/**
+	 * 
+	 * @param number
+	 * @param dep
+	 * @param arr
+	 * @param depTime
+	 * @param arrTime
+	 * @param cost
+	 * @param numberOfFreePlaces
+	 */
 	public Flight(String number, String dep, String arr, LocalDateTime depTime, 
 			LocalDateTime arrTime, double cost, int numberOfFreePlaces){
         this.number = number;
