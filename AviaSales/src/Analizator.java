@@ -1,6 +1,8 @@
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -49,6 +51,9 @@ public class Analizator {
 		assert (Routes.size() ==0);
 
 	}
+	
+	private ArrayList<Route> result = new ArrayList<Route>();
+	private ArrayList<Flight2> currentRouteList= new ArrayList<Flight2>();
 
 	private SearchParams getTestSearchParams() {
 		SearchParams sp = new SearchParams();
@@ -62,20 +67,22 @@ public class Analizator {
 	private ArrayList<Flight2> getTestFlightData() {
 
 		ArrayList<Flight2> flights = new ArrayList<Flight2>();
-		flights.add(new Flight2("Казань", "Москва", asDate("11.01.2016 14:12:13"),
-				asDate("11.01.2016 15:12:13"),20));
-		flights.add(new Flight2("Казань", "Набережные Челны", asDate("11.01.2016 14:12:13"),
-				asDate("11.01.2016 15:12:13"),20));
-		flights.add(new Flight2("Казань", "Краснодар", asDate("11.01.2016 14:12:13"),
-				asDate("11.01.2016 15:12:13"),20));
-		flights.add(new Flight2("Краснодар", "Москва", asDate("11.01.2016 14:12:13"),
-				asDate("11.01.2016 15:12:13"),20));
-		flights.add(new Flight2("Набережные Челны", "Москва", asDate("11.01.2016 14:12:13"),
-				asDate("11.01.2016 15:12:13"),20));
-		flights.add(new Flight2("Кисловодск", "Ростов", asDate("11.01.2016 14:12:13"),
-				asDate("11.01.2016 15:12:13"),20));
-		flights.add(new Flight2("Кисловодск", "Москва", asDate("11.01.2016 14:12:13"),
-				asDate("11.01.2016 15:12:13"),20));
+		flights.add(new Flight2("Казань", "Москва", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
+				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
+		flights.add(new Flight2("Казань", "Набережные Челны", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
+				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
+		flights.add(new Flight2("Казань", "Краснодар", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
+				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
+		flights.add(new Flight2("Краснодар", "Москва", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
+				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
+		flights.add(new Flight2("Набережные Челны", "Москва", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
+				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
+		flights.add(new Flight2("Кисловодск", "Ростов", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
+				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
+		flights.add(new Flight2("Кисловодск", "Москва", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
+				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
+		flights.add(new Flight2("Москва","Кисловодск", LocalDateTime.of(2016,Month.JANUARY, 16,12,0),
+				LocalDateTime.of(2016,Month.JANUARY, 18,12,0),20));
 		return flights;
 	}
 
@@ -85,36 +92,27 @@ public class Analizator {
 		return date;
 	}
 
-	private Date asDate(String stringDate) {
-
-		String stringDateFormat = "dd.MM.yyyy HH:mm:ss";
-		DateFormat format = new SimpleDateFormat(stringDateFormat, Locale.ENGLISH);
-		try {
-			Date date = (Date) format.parse(stringDate);
-			return date;
-		} catch (Exception e) {
-			return null;
-			// handle exception;
-		}
-	}
-
+	
 	public ArrayList<Route> searchFlights(SearchParams sp, ArrayList<Flight2> flights) {
+		ArrayList<Flight2> suitableFlights= new ArrayList<Flight2>();
 		
-		@SuppressWarnings("unused")
-		List<Flight2> suitableFlights = (List) flights.stream()
-				.filter(u -> u.aeroport1 == sp.fromAirport 
-				&& u.numberOfFreeSeats >= sp.personCount  
-						//&& s.toDate<u.date1
-						)
-				.collect(Collectors.toList());
+		for(Flight2 f:flights){
+			if ((f.aeroport1==sp.fromAirport)&& (f.date1.toLocalDate().isEqual(sp.toDate))){
+				if (f.isEndFlight(sp)) {
+					
+					Route route=new Route(new ArrayList<Flight>());//ToDO
+					//Route route=new Route(currentRouteList);
+					// route.flights;
+					result.add(route);
+				}
+				suitableFlights.add(f);
+				
+			}
+			
+		}
 		
-
-		Calendar cal = Calendar.getInstance(); // creates calendar
-		cal.setTime(new Date()); // sets calendar time/date
-		cal.add(Calendar.HOUR_OF_DAY, 1); // adds one hour
-		cal.getTime(); // returns new date object, one hour in the future
-
-		return null;
+		
+		return result;
 	}
 
 }

@@ -12,6 +12,7 @@ public class Route {
 		calculateTotalCost();
 	}
 	
+	
 	/**
 	 * Calculates the total cost of all flights in the route
 	 */
