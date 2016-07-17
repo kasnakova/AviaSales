@@ -7,14 +7,38 @@ import java.time.LocalDate;
 
 
 public class SearchParams {
-	String fromAirport;
-	String toAirport;
-	LocalDate toDate;
-	LocalDate returnDate;
-	boolean returnFlight;
-	int personCount;
+	private String dep;
+	private String arr;
+	private LocalDate depDate;
+	private LocalDate returnDate;
+	private boolean returnFlight;
+	private int personCount;
 	
-	public SearchParams(){
+	public SearchParams(String dep,String arr,LocalDate depDate,LocalDate returnDate,boolean returnFlight,int personCount){
+		
+	}
+	public String getDep(){
+		return dep;
+		
+	}
+	public String getArr(){
+		return arr;
+		
+	}
+	public LocalDate getDepDate(){
+		return depDate;
+		
+	}
+	public LocalDate getReturnDate(){
+		return returnDate;
+		
+	}
+	public boolean  getReturnFlight(){
+		return returnFlight;
+		
+	}
+	public int  getPersonCount(){
+		return  personCount;
 		
 	}
 	

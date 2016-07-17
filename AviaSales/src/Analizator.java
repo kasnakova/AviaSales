@@ -1,15 +1,8 @@
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.Month;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
-import java.util.stream.Collectors;
 
 import static org.junit.Assert.*;
 
@@ -37,81 +30,71 @@ public class Analizator {
 	 */
 	@Test
 	public void TestData() {
-		ArrayList<Flight2> flights = getTestFlightData();
+		ArrayList<Flight> flights = getTestFlightData();
 		assert (7 == flights.size());
 
 	}
 
 	@Test
 	public void Test() {
-		ArrayList<Flight2> flights = getTestFlightData();
+		ArrayList<Flight> flights = getTestFlightData();
 		SearchParams sp = getTestSearchParams();
 		ArrayList<Route> Routes = searchFlights(sp, flights);
 		System.out.println(Routes.size());
-		assert (Routes.size() ==0);
+		assert (Routes.size() == 0);
 
 	}
-	
+
 	private ArrayList<Route> result = new ArrayList<Route>();
-	private ArrayList<Flight2> currentRouteList= new ArrayList<Flight2>();
+	private ArrayList<Flight> currentRouteList = new ArrayList<Flight>();
 
 	private SearchParams getTestSearchParams() {
-		SearchParams sp = new SearchParams();
-		sp.fromAirport = "Казань";
-		sp.toAirport = "Кисловодск";
-		sp.personCount = 2;
-		sp.toDate = asLocalDate("11.01.2016");
+		SearchParams sp = new SearchParams("Казань", "Кисловодск", LocalDate.of(2016, Month.JANUARY, 14), null, false,
+				2);
+
 		return sp;
 	}
 
-	private ArrayList<Flight2> getTestFlightData() {
+	private ArrayList<Flight> getTestFlightData() {
 
-		ArrayList<Flight2> flights = new ArrayList<Flight2>();
-		flights.add(new Flight2("Казань", "Москва", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
-				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
-		flights.add(new Flight2("Казань", "Набережные Челны", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
-				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
-		flights.add(new Flight2("Казань", "Краснодар", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
-				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
-		flights.add(new Flight2("Краснодар", "Москва", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
-				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
-		flights.add(new Flight2("Набережные Челны", "Москва", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
-				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
-		flights.add(new Flight2("Кисловодск", "Ростов", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
-				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
-		flights.add(new Flight2("Кисловодск", "Москва", LocalDateTime.of(2016,Month.JANUARY, 14,12,0),
-				LocalDateTime.of(2016,Month.JANUARY, 15,12,0),20));
-		flights.add(new Flight2("Москва","Кисловодск", LocalDateTime.of(2016,Month.JANUARY, 16,12,0),
-				LocalDateTime.of(2016,Month.JANUARY, 18,12,0),20));
+		ArrayList<Flight> flights = new ArrayList<Flight>();
+		flights.add(new Flight("2345", "Казань", "Москва", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+				LocalDateTime.of(2016, Month.JANUARY, 15, 12, 0), 1000.0, 20));
+		flights.add(new Flight("2346", "Казань", "Набережные Челны", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+				LocalDateTime.of(2016, Month.JANUARY, 15, 12, 0), 1000.0, 20));
+		flights.add(new Flight("2347", "Казань", "Краснодар", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+				LocalDateTime.of(2016, Month.JANUARY, 15, 12, 0), 1000.0, 20));
+		flights.add(new Flight("2348", "Краснодар", "Москва", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+				LocalDateTime.of(2016, Month.JANUARY, 15, 12, 0), 1000.0, 20));
+		flights.add(new Flight("2349", "Набережные Челны", "Москва", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+				LocalDateTime.of(2016, Month.JANUARY, 15, 12, 0), 1000.0, 20));
+		flights.add(new Flight("2350", "Кисловодск", "Ростов", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+				LocalDateTime.of(2016, Month.JANUARY, 15, 12, 0), 1000.0, 20));
+		flights.add(new Flight("2351", "Кисловодск", "Москва", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+				LocalDateTime.of(2016, Month.JANUARY, 15, 12, 0), 1000.0, 20));
+		flights.add(new Flight("2352", "Москва", "Кисловодск", LocalDateTime.of(2016, Month.JANUARY, 16, 12, 0),
+				LocalDateTime.of(2016, Month.JANUARY, 18, 12, 0), 1000.0, 20));
 		return flights;
 	}
 
-	private LocalDate asLocalDate(String stringDate) {
-		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
-		LocalDate date = LocalDate.parse(stringDate, formatter);
-		return date;
-	}
+	public ArrayList<Route> searchFlights(SearchParams sp, ArrayList<Flight> flights) {
+		ArrayList<Flight> suitableFlights = new ArrayList<Flight>();
 
-	
-	public ArrayList<Route> searchFlights(SearchParams sp, ArrayList<Flight2> flights) {
-		ArrayList<Flight2> suitableFlights= new ArrayList<Flight2>();
-		
-		for(Flight2 f:flights){
-			if ((f.aeroport1==sp.fromAirport)&& (f.date1.toLocalDate().isEqual(sp.toDate))){
+		for (Flight f : flights) {
+			if ((f.getDep() == sp.getDep()) && (f.getDepTime().toLocalDate().isEqual(sp.getDepDate()))) {
 				if (f.isEndFlight(sp)) {
-					
-					Route route=new Route(new ArrayList<Flight>());//ToDO
-					//Route route=new Route(currentRouteList);
-					// route.flights;
+
+					Route route = new Route(currentRouteList);
+					route.flights.add(f);
 					result.add(route);
+				} else {
+					suitableFlights.add(f);
 				}
-				suitableFlights.add(f);
-				
+
+				// currentRouteList
 			}
-			
+
 		}
-		
-		
 		return result;
 	}
 
