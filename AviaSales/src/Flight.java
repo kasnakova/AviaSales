@@ -92,11 +92,11 @@ public class Flight {
 	public boolean isConnectingFlight(Flight flight){
 	    LocalDateTime minDate = this.arrTime.plusHours(1);
 	    LocalDateTime maxDate = this.arrTime.plusHours(9);
-	    if((this.arr==flight.dep)
-	        &&(flight.depTime.isAfter(minDate))
-	        &&(flight.depTime.isBefore(maxDate)));
-	        
-	    return true;
+	    if((this.getArr()==flight.getDep()) &&(flight.depTime.isAfter(minDate)) &&(flight.depTime.isBefore(maxDate))){
+	    	return true;
+	    }else{
+	    	return false;
+	    }
 	  }
 	
 	  public boolean isEndFlight(SearchParams sp){
