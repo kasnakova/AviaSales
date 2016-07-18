@@ -1,4 +1,4 @@
-
+package com.avia.sales;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -45,7 +45,7 @@ public class Analizator {
 
 	private static ArrayList<Route> result = new ArrayList<Route>();
 	private static SearchParams getTestSearchParams() {
-		SearchParams sp = new SearchParams("РљР°Р·Р°РЅСЊ", "РљРёСЃР»РѕРІРѕРґСЃРє", LocalDate.of(2016, Month.JANUARY, 14), null, false,
+		SearchParams sp = new SearchParams("Казань", "Кисловодск", LocalDate.of(2016, Month.JANUARY, 14), null, false,
 				2);
 
 		return sp;
@@ -54,24 +54,24 @@ public class Analizator {
 	private static ArrayList<Flight> getTestFlightData() throws IOException {
 
 		ArrayList<Flight> flights = new ArrayList<Flight>();
-		flights.add(new Flight("2353", "РљР°Р·Р°РЅСЊ", "РљРёСЃР»РѕРІРѕРґСЃРє", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2353", "Казань", "Кисловодск", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2345", "РљР°Р·Р°РЅСЊ", "РњРѕСЃРєРІР°", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2345", "Казань", "Москва", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2352", "РњРѕСЃРєРІР°", "РљРёСЃР»РѕРІРѕРґСЃРє", LocalDateTime.of(2016, Month.JANUARY, 14, 15, 0),
+		flights.add(new Flight("2352", "Москва", "Кисловодск", LocalDateTime.of(2016, Month.JANUARY, 14, 15, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 16, 0), 1000.0, 20));
 
-		flights.add(new Flight("2346", "РљР°Р·Р°РЅСЊ", "РќР°Р±РµСЂРµР¶РЅС‹Рµ Р§РµР»РЅС‹", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2346", "Казань", "Набережные Челны", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2347", "РљР°Р·Р°РЅСЊ", "РљСЂР°СЃРЅРѕРґР°СЂ", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2347", "Казань", "Краснодар", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2348", "РљСЂР°СЃРЅРѕРґР°СЂ", "РњРѕСЃРєРІР°", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2348", "Краснодар", "Москва", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2349", "РќР°Р±РµСЂРµР¶РЅС‹Рµ Р§РµР»РЅС‹", "РњРѕСЃРєРІР°", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2349", "Набережные Челны", "Москва", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2350", "РљРёСЃР»РѕРІРѕРґСЃРє", "Р РѕСЃС‚РѕРІ", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2350", "Кисловодск", "Ростов", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2351", "РљРёСЃР»РѕРІРѕРґСЃРє", "РљР°Р·Р°РЅСЊ", LocalDateTime.of(2016, Month.JANUARY, 15, 12, 0),
+		flights.add(new Flight("2351", "Кисловодск", "Казань", LocalDateTime.of(2016, Month.JANUARY, 15, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 15, 13, 0), 1000.0, 20));
 		//ArrayList<Flight> flights2 = StorageAdapter.loadFlights();
 		return flights;
