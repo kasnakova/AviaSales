@@ -2,6 +2,7 @@
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,8 +27,27 @@ public class StorageAdapter<T> {
 	 * @return all flights from the files
 	 * @throws IOException 
 	 */
-	private final static String DB_FILES_PATH = "AviaSales/src/";
-
+	private final static String DB_FILES_PATH = "src/";
+	
+	static ArrayList<Savable> loadObjects(String className) throws IOException{
+		ArrayList<Savable> objects = new ArrayList<Savable>();
+		BufferedReader br = new BufferedReader(new FileReader(DB_FILES_PATH + className + ".db"));
+	    try {
+	    	
+	        //StringBuilder sb = new StringBuilder();
+	        String line = br.readLine();
+	        while (line != null){
+	        	objects.add(Savable.getObjectFromString(line));
+	        }
+	        
+	        return objects;
+	    } finally {
+	    	
+	    	System.out.println("LOAD IS FINISHED ");
+	        br.close();
+	    }
+	}
+	
 	static ArrayList<Flight> loadFlights() throws IOException{
 
 		ArrayList<Flight> flights = new ArrayList<Flight>();
@@ -77,28 +97,38 @@ public class StorageAdapter<T> {
 	    }
 	    
 	}
-	
+
 	/**
-	 * Writes flights to files
-	 * @param flights the flights to be written to files
-	 * @throws IOException 
+	 * save array list of child of Savable interface to file
+	 * @param objects
+	 * @throws IOException
+	 * @return 
 	 */
-	static void saveFlights(ArrayList<Flight> flights) throws IOException{
-		  BufferedWriter outputWriter = null;
-		  outputWriter = new BufferedWriter(new FileWriter(DB_FILES_PATH + "Flights.db"));
-		  String tmp = "";
-		  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-		  for (Flight tf:flights) {
-			  tmp = tf.getNumber() + ";" + tf.getDep() + ";" + tf.getArr()
-					  + ";" + tf.getDepTime().format(formatter) + ";" + tf.getArrTime().format(formatter)
-					  + ";" + tf.getCost() + ";" +tf.getNumberOfFreePlaces();
-		    outputWriter.write(tmp);
-		    outputWriter.newLine();
-		    System.out.println(tmp);
-		  }
-		  outputWriter.flush();  
-		  outputWriter.close();
+	static int saveObject(ArrayList<Savable> objects) throws IOException{
 		  
+		BufferedWriter outputWriter = null;
+		  if (objects.isEmpty())
+			  return 0;
+		  try
+		  {
+			  
+			  outputWriter = new BufferedWriter(new FileWriter(DB_FILES_PATH + objects.get(0).getClassName() +".db"));
+			 
+			  System.out.println(DB_FILES_PATH + objects.get(0).getClassName() +".db");
+			  
+			  for (Savable tf:objects) {
+			    outputWriter.write(tf.makeSavebleString());
+			    outputWriter.newLine();
+			    System.out.println(tf.makeSavebleString());
+			  }
+			  outputWriter.flush();  
+			  outputWriter.close();
+			  
+			  return 1;
+			  
+		  }catch(Exception e){
+			  return -1;
+		  }
 	}
 	
 	/**
@@ -110,14 +140,6 @@ public class StorageAdapter<T> {
 		ArrayList<Person> persons = new ArrayList<Person>();
 		
 		return null;
-	}
-	
-	/**
-	 * Write a person's information to a file
-	 * @param person the person's information to be saved to a file
-	 */
-	static void savePerson(Person person){
-		
 	}
 	
 }

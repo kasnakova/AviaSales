@@ -1,11 +1,14 @@
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 /**
  * Information about a user
  * @author ildarworld
  *
  */
-public class Person {
+public class Person implements Savable{
+
 	private String firstName;
 	private String serName;
 	private String passportNumber;
@@ -13,6 +16,7 @@ public class Person {
 	private String email;
 	private String phoneNumber;
 	private String creditCardNumber;
+	private final String CLASS_NAME = "Flights";
 	
 	public Person(String firstName, String serName, String passportNumber, LocalDate birthDay, String email, String phoneNumber, String creditCardNumber){
 		
@@ -67,9 +71,26 @@ public class Person {
 	public void setCreditCardNumber(String creditCardNumber) {
 		this.creditCardNumber = creditCardNumber;
 	}
+	@Override
+	public String makeSavebleString() {
+		// TODO Auto-generated method stub
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+		String result = getFirstName() + ";" + getSerName() + ";" + getPassportNumber() + ";" 
+					+ getBirthDay().format(formatter) + ";" + getEmail() + ";" 
+					+ getPhoneNumber() + ";" + getCreditCardNumber();
+		
+		return result;
+	}
+	@Override
+	public String getClassName() {
+		return CLASS_NAME;
+	}
 	
-	
-	
-	
+	@Override
+	public String toString() {
+		return "Person [firstName=" + firstName + ", serName=" + serName + ", passportNumber=" + passportNumber
+				+ ", birthDay=" + birthDay + ", email=" + email + ", phoneNumber=" + phoneNumber + ", creditCardNumber="
+				+ creditCardNumber + ", CLASS_NAME=" + CLASS_NAME + "]";
+	}
 	
 }
