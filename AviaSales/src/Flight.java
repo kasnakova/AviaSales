@@ -105,7 +105,7 @@ public class Flight implements Savable{
 		return tmpConnector.toString();
 	}
 	
-	public boolean isConnectingFlight(Flight flight){
+	/*public boolean isConnectingFlight(Flight flight){
 	    LocalDateTime minDate = this.arrTime.plusHours(1);
 	    LocalDateTime maxDate = this.arrTime.plusHours(9);
 	    if((this.getArr()==flight.getDep()) &&(flight.depTime.isAfter(minDate)) &&(flight.depTime.isBefore(maxDate))){
@@ -120,7 +120,7 @@ public class Flight implements Savable{
 	      return true;
 	    else
 	      return false;
-	  }
+	  }*/
 
 	@Override
 	public String makeSavebleString() {

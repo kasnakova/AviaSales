@@ -11,17 +11,12 @@ public class SearchParams {
 	private String dep;
 	private String arr;
 	private LocalDate depDate;
-	private LocalDate returnDate;
-	private boolean returnFlight;
 	private int personCount;
 
-	public SearchParams(String dep, String arr, LocalDate depDate, LocalDate returnDate, boolean returnFlight,
-			int personCount) {
+	public SearchParams(String dep, String arr, LocalDate depDate,int personCount) {
 		this.arr = arr;
 		this.dep = dep;
 		this.depDate = depDate;
-		this.returnDate = returnDate;
-		this.returnFlight = returnFlight;
 		this.personCount = personCount;
 	}
 
@@ -40,20 +35,9 @@ public class SearchParams {
 
 	}
 
-	public LocalDate getReturnDate() {
-		return returnDate;
-
-	}
-
 	@Override
 	public String toString() {
-		return "SearchParams [dep=" + dep + ", arr=" + arr + ", depDate=" + depDate + ", returnDate=" + returnDate
-				+ ", returnFlight=" + returnFlight + ", personCount=" + personCount + "]";
-	}
-
-	public boolean getReturnFlight() {
-		return returnFlight;
-
+		return "SearchParams [dep=" + dep + ", arr=" + arr + ", depDate=" + depDate + ",  personCount=" + personCount + "]";
 	}
 
 	public int getPersonCount() {

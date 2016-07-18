@@ -7,8 +7,6 @@ import java.util.ArrayList;
  * It is the main logic for AviaSales project
  */
 public class AviaSales {
-	private ArrayList<Flight> flights;
-
 	public AviaSales() {
 		/*
 		 * loadFlightss
@@ -37,7 +35,7 @@ public class AviaSales {
 	 * @return parameters needed for finding the correct flights
 	 */
 	private SearchParams getSearchParams() {
-		SearchParams sp = new SearchParams("Казань", "Кисловодск", LocalDate.of(2016, Month.JANUARY, 14), null, false,
+		SearchParams sp = new SearchParams("KAZAN", "KISLOVODSK", LocalDate.of(2016, Month.JANUARY, 14),
 				2);
 
 		return sp;

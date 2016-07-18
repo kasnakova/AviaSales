@@ -26,7 +26,7 @@ public class Analizator {
 	 *            the available flights
 	 * @return
 	 * @return
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	@Test
 	public void TestData() throws IOException {
@@ -44,9 +44,9 @@ public class Analizator {
 	}
 
 	private static ArrayList<Route> result = new ArrayList<Route>();
+
 	private static SearchParams getTestSearchParams() {
-		SearchParams sp = new SearchParams("Казань", "Кисловодск", LocalDate.of(2016, Month.JANUARY, 14), null, false,
-				2);
+		SearchParams sp = new SearchParams("KAZAN", "KISLOVODSK", LocalDate.of(2016, Month.JANUARY, 14), 2);
 
 		return sp;
 	}
@@ -54,75 +54,79 @@ public class Analizator {
 	private static ArrayList<Flight> getTestFlightData() throws IOException {
 
 		ArrayList<Flight> flights = new ArrayList<Flight>();
-		flights.add(new Flight("2353", "Казань", "Кисловодск", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2353", "KAZAN", "KISLOVODSK", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2345", "Казань", "Москва", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2345", "KAZAN", "MOSCOW", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2352", "Москва", "Кисловодск", LocalDateTime.of(2016, Month.JANUARY, 14, 15, 0),
+		flights.add(new Flight("2352", "MOSCOW", "KISLOVODSK", LocalDateTime.of(2016, Month.JANUARY, 14, 15, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 16, 0), 1000.0, 20));
-
-		flights.add(new Flight("2346", "Казань", "Набережные Челны", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2346", "KAZAN", "NABEREZHNIE CHELNY", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2347", "Казань", "Краснодар", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2347", "KAZAN", "KRASNODAR", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2348", "Краснодар", "Москва", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2348", "KRASNODAR", "MOSCOW", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2349", "Набережные Челны", "Москва", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2349", "NABEREZHNIE CHELNY", "MOSCOW", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2350", "Кисловодск", "Ростов", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
+		flights.add(new Flight("2350", "KISLOVODSK", "ROSTOV", LocalDateTime.of(2016, Month.JANUARY, 14, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 14, 13, 0), 1000.0, 20));
-		flights.add(new Flight("2351", "Кисловодск", "Казань", LocalDateTime.of(2016, Month.JANUARY, 15, 12, 0),
+		flights.add(new Flight("2351", "KISLOVODSK", "KAZAN", LocalDateTime.of(2016, Month.JANUARY, 15, 12, 0),
 				LocalDateTime.of(2016, Month.JANUARY, 15, 13, 0), 1000.0, 20));
-		//ArrayList<Flight> flights2 = StorageAdapter.loadFlights();
+		// ArrayList<Flight> flights2 = StorageAdapter.loadFlights();
 		return flights;
 	}
 
 	public static ArrayList<Route> searchFlights(SearchParams sp) throws IOException {
 		ArrayList<Flight> flights = getTestFlightData();
 		
+		String	dep=sp.getDep();
+		String	arr=sp.getArr();
+		LocalDate	depDate=sp.getDepDate();
+
 		for (Flight f : flights) {
-			if ((f.getDep() == sp.getDep()) && (f.getDepTime().toLocalDate().isEqual(sp.getDepDate()))) {
-				
-				if (f.isEndFlight(sp)) {
-					
-					//Route route = new Route(f);
+			if ((f.getDep() == dep) && (f.getDepTime().toLocalDate().isEqual(depDate)
+					&&(f.getNumberOfFreePlaces() >= sp.getPersonCount()))) {
+
+				if (isEndFlight(f,arr)) {
 					Analizator.result.add(new Route(f));
-					//System.out.println("finded route without stops");
+
 				} else {
-					
-					SearchConnectedFlights(f, sp);
-					//System.out.println("searching connecting flight for " + f.toString());
+					SearchConnectedFlights(f, arr,sp.getPersonCount());
 				}
-
-			} else {
-				//System.out.println(f.toString() + " don't suit");
 			}
-
 		}
-		//System.out.println("finded " + Analizator.result.size() + " routes");
 		return result;
 
 	}
 
-	private static void SearchConnectedFlights(Flight flight, SearchParams sp) throws IOException {
+	private static void SearchConnectedFlights(Flight flight,String arr,int personCount) throws IOException {
 		ArrayList<Flight> flights = getTestFlightData();
-		
-		for (Flight f : flights) {
-			if ((flight.isConnectingFlight(f)) && (f.getNumberOfFreePlaces() >= sp.getPersonCount())) {
-				if (f.isEndFlight(sp)) {
 
+		for (Flight f : flights) {
+			if ((isConnectingFlight(flight,f)) && (f.getNumberOfFreePlaces() >= personCount)) {
+				if (isEndFlight(f,arr)) {
 					Route route = new Route(flight);
 					route.flights.add(f);
-					
 					Analizator.result.add(route);
-				} else {
-					//nothing to do
-					//SearchConnectedFlights(f, sp);  - searching routes with more then 1 connections 
-					//                                  will be implemented in the nearest future
-					
 				}
 			}
 		}
 	}
+	public static boolean isConnectingFlight(Flight f1,Flight f2){
+	    LocalDateTime minDate = f1.getArrTime().plusHours(1);
+	    LocalDateTime maxDate = f1.getArrTime().plusHours(9);
+	    if((f1.getArr()==f2.getDep()) &&(f2.getDepTime().isAfter(minDate)) &&(f2.getDepTime().isBefore(maxDate))){
+	    	return true;
+	    }else{
+	    	return false;
+	    }
+	  }
+	
+	  public static boolean isEndFlight(Flight f,String arr){
+	    if (f.getArr()==arr)
+	      return true;
+	    else
+	      return false;
+	  }
 
 }
