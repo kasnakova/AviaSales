@@ -1,8 +1,8 @@
 package com.aviasales.models;
 import java.time.LocalDateTime;
 
-public class Ticket {
-	private int ticketNumber;
+public class Ticket implements Savable{
+	private String ticketNumber;
 	private LocalDateTime ticketDate;
 	private Flight flight;
 	private String bookingCode;
@@ -12,7 +12,7 @@ public class Ticket {
 		return ticketNumber;
 	}
 
-	public void setTicketNumber(int ticketNumber) {
+	private void setTicketNumber(int ticketNumber) {
 		this.ticketNumber = ticketNumber;
 	}
 
@@ -55,8 +55,11 @@ public class Ticket {
 	}
 	
 	public Ticket(int ticketNumber, LocalDateTime ticketDate, Flight flight, String bookingCode, Person person) {
+		UUID uuid = UUID.randomUUID();
+        String randomUUIDString = uuid.toString();
+		
 		super();
-		this.ticketNumber = ticketNumber;
+		this.ticketNumber = randomUUIDString;
 		this.ticketDate = ticketDate;
 		this.flight = flight;
 		this.bookingCode = bookingCode;

@@ -31,7 +31,7 @@ public class StorageAdapter<T> {
 	 * @return all flights from the files
 	 * @throws IOException 
 	 */
-	private final static String DB_FILES_PATH = "src/";
+	private final static String DB_FILES_PATH = "src/com/aviasales/data/";
 	
 	static ArrayList<Savable> loadObjects(String className) throws IOException{
 		ArrayList<Savable> objects = new ArrayList<Savable>();
@@ -111,28 +111,27 @@ public class StorageAdapter<T> {
 	static int saveObject(ArrayList<Savable> objects) throws IOException{
 		  
 		BufferedWriter outputWriter = null;
-		  if (objects.isEmpty())
-			  return 0;
-		  try
-		  {
-			  
-			  outputWriter = new BufferedWriter(new FileWriter(DB_FILES_PATH + objects.get(0).getClassName() +".db"));
-			 
-			  System.out.println(DB_FILES_PATH + objects.get(0).getClassName() +".db");
-			  
-			  for (Savable tf:objects) {
-			    outputWriter.write(tf.makeSavebleString());
-			    outputWriter.newLine();
-			    System.out.println(tf.makeSavebleString());
-			  }
-			  outputWriter.flush();  
-			  outputWriter.close();
-			  
-			  return 1;
-			  
-		  }catch(Exception e){
-			  return -1;
-		  }
+		if (objects.isEmpty())
+			return 0;
+		try {
+
+			outputWriter = new BufferedWriter(new FileWriter(DB_FILES_PATH + objects.get(0).getClassName() + ".db"));
+
+			System.out.println(DB_FILES_PATH + objects.get(0).getClassName() + ".db");
+
+			for (Savable tf : objects) {
+				outputWriter.write(tf.makeSavebleString());
+				outputWriter.newLine();
+				System.out.println(tf.makeSavebleString());
+			}
+			outputWriter.flush();
+			outputWriter.close();
+
+			return 1;
+
+		} catch (Exception e) {
+			return -1;
+		}
 	}
 	
 	/**

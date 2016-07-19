@@ -179,23 +179,4 @@ public class Flight implements Savable{
 		Flight cf = new Flight(number, dep, arr, depTime, arrTime, cost, numberOfFreePlaces);
 		return cf;
 	}
-	/*
-	@Override
-	public Savable getObjectFromString(String line) {
-		
-	   StringTokenizer st = new StringTokenizer(line,";");
-	   while(st.hasMoreTokens()){
-	        
-	        this.number = st.nextElement().toString();
-	        this.dep = st.nextElement().toString();
-	        this.arr = st.nextElement().toString();
-	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-	        this.depTime = LocalDateTime.parse(st.nextElement().toString(), formatter);
-	        this.arrTime = LocalDateTime.parse(st.nextElement().toString(), formatter);
-	        this.cost = Double.valueOf(st.nextElement().toString());
-	        this.numberOfFreePlaces = Integer.parseInt(st.nextElement().toString());
-	   }
-	        
-		return this;
-	}*/
 }
