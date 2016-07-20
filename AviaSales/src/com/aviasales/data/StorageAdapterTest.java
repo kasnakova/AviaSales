@@ -63,7 +63,7 @@ public class StorageAdapterTest {
 	}
 
 	@Test public void testLoadObjects() throws IOException{
-		ArrayList<Savable> s = StorageAdapter.loadObjects("Flight");
+		ArrayList<Flight> s = StorageAdapter.loadFlights();
 		ArrayList<Flight> f = new ArrayList<Flight>();
 		for(Savable flight:s){
 			f.add((Flight) flight);

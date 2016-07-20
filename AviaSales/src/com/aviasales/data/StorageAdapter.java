@@ -53,7 +53,7 @@ public class StorageAdapter<T> {
 		}
 	}*/
 	
-	static ArrayList<Flight> loadFlights() throws IOException {
+	public static ArrayList<Flight> loadFlights() throws IOException {
 
 		flights = new ArrayList<Flight>();
 
@@ -89,7 +89,7 @@ public class StorageAdapter<T> {
 	 * @throws IOException
 	 * @return 
 	 */
-	static int saveObject(ArrayList<Savable> objects) throws IOException{
+	public static int saveObject(ArrayList<Savable> objects) throws IOException{
 		  
 		BufferedWriter outputWriter = null;
 		if (objects.isEmpty())
@@ -121,7 +121,7 @@ public class StorageAdapter<T> {
 	 * @return the person information
 	 * @throws IOException 
 	 */
-	static ArrayList<Person> loadPerson() throws IOException{
+	public static ArrayList<Person> loadPerson() throws IOException{
 		persons = new ArrayList<Person>();
 		
 		BufferedReader br = new BufferedReader(new FileReader(DB_FILES_PATH + "Persons.db"));
