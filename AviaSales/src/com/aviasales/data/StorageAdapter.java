@@ -89,7 +89,7 @@ public class StorageAdapter<T> {
 	 * @throws IOException
 	 * @return 
 	 */
-	static int saveObject(ArrayList<Savable> objects) throws IOException{
+	static public <T extends Savable> int saveObject(ArrayList<T> objects) throws IOException{
 		  
 		BufferedWriter outputWriter = null;
 		if (objects.isEmpty())
@@ -99,11 +99,10 @@ public class StorageAdapter<T> {
 			outputWriter = new BufferedWriter(new FileWriter(DB_FILES_PATH + objects.get(0).getClassName() + ".db"));
 
 			System.out.println(DB_FILES_PATH + objects.get(0).getClassName() + ".db");
-
-			for (Savable tf : objects) {
-				outputWriter.write(tf.makeSavebleString());
+			for(int i = 0; i< objects.size();i++){
+				outputWriter.write(objects.get(i).makeSavebleString());
 				outputWriter.newLine();
-				System.out.println(tf.makeSavebleString());
+				System.out.println(objects.get(i).makeSavebleString());
 			}
 			outputWriter.flush();
 			outputWriter.close();
