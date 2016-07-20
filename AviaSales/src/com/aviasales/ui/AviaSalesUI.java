@@ -64,7 +64,6 @@ public class AviaSalesUI extends javax.swing.JFrame {
         txtPersonCount = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
         menuSearch = new javax.swing.JMenu();
-        menuAdd = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("AviaSales");
@@ -98,6 +97,11 @@ public class AviaSalesUI extends javax.swing.JFrame {
         });
 
         listOfRoutes.setToolTipText("");
+        listOfRoutes.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listOfRoutesMouseClicked(evt);
+            }
+        });
         lisFlights.setViewportView(listOfRoutes);
 
         txtDate.setToolTipText("Format: day/month/year");
@@ -179,14 +183,6 @@ public class AviaSalesUI extends javax.swing.JFrame {
         menuSearch.setToolTipText("");
         jMenuBar1.add(menuSearch);
 
-        menuAdd.setText("Add");
-        menuAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                menuAddActionPerformed(evt);
-            }
-        });
-        jMenuBar1.add(menuAdd);
-
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -257,14 +253,16 @@ public class AviaSalesUI extends javax.swing.JFrame {
                 }
 
                 listOfRoutes.setListData(routeData);
+            } else {
+                JOptionPane.showMessageDialog(this, "No flights match your criteria", "Sorry", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void menuAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuAddActionPerformed
-        AddFlightsForm addFlightForm = new AddFlightsForm();
-        addFlightForm.setVisible(true);
-    }//GEN-LAST:event_menuAddActionPerformed
+    private void listOfRoutesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listOfRoutesMouseClicked
+        PersonalInfoFrame frame = new PersonalInfoFrame();
+        frame.setVisible(true);
+    }//GEN-LAST:event_listOfRoutesMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
@@ -277,7 +275,6 @@ public class AviaSalesUI extends javax.swing.JFrame {
     private javax.swing.JLabel lblReturnDate;
     private javax.swing.JScrollPane lisFlights;
     private javax.swing.JList<String> listOfRoutes;
-    private javax.swing.JMenu menuAdd;
     private javax.swing.JMenu menuSearch;
     private javax.swing.JPanel panelSearch;
     private javax.swing.JTextField txtDate;

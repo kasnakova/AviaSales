@@ -33,7 +33,7 @@ public class StorageAdapter<T> {
 	 */
 	private final static String DB_FILES_PATH = "src/";
 	
-	static ArrayList<Savable> loadObjects(String className) throws IOException{
+	public static ArrayList<Savable> loadObjects(String className) throws IOException{
 		ArrayList<Savable> objects = new ArrayList<Savable>();
 		BufferedReader br = new BufferedReader(new FileReader(DB_FILES_PATH + className + ".db"));
 	    try {
@@ -52,7 +52,7 @@ public class StorageAdapter<T> {
 	    }
 	}
 	
-	static ArrayList<Flight> loadFlights() throws IOException{
+	public static ArrayList<Flight> loadFlights() throws IOException{
 
 		ArrayList<Flight> flights = new ArrayList<Flight>();
 		
@@ -108,7 +108,7 @@ public class StorageAdapter<T> {
 	 * @throws IOException
 	 * @return 
 	 */
-	static int saveObject(ArrayList<Savable> objects) throws IOException{
+	public static int saveObject(ArrayList<Savable> objects) throws IOException{
 		  
 		BufferedWriter outputWriter = null;
 		  if (objects.isEmpty())
@@ -140,7 +140,7 @@ public class StorageAdapter<T> {
 	 * @param email determines who is the person 
 	 * @return the person information
 	 */
-	static ArrayList<Person> loadPerson(String email){
+	public static ArrayList<Person> loadPerson(String email){
 		ArrayList<Person> persons = new ArrayList<Person>();
 		
 		return null;
