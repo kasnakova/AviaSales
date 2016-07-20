@@ -41,7 +41,6 @@ public class Analizator {
 	
 	public static ArrayList<Route> searchFlights(SearchParams sp) throws IOException {
 		ArrayList<Flight> flights = StorageAdapter.loadFlights();
-		
 		String	dep=sp.getDep();
 		String	arr=sp.getArr();
 		LocalDate	depDate=sp.getDepDate();

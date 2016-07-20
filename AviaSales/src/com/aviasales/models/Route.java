@@ -12,8 +12,7 @@ import java.util.ArrayList;
 
 public class Route {
 	public ArrayList<Flight> flights=new ArrayList<Flight>();
-	public ArrayList<Flight> returnFlights=new ArrayList<Flight>();
-
+	
 	private double cost;
 
 	public Route(ArrayList<Flight> flights) {
