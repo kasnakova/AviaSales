@@ -1,19 +1,20 @@
 package com.aviasales.models;
-import java.time.LocalDateTime;
 
-public class Ticket implements Savable{
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.UUID;
+
+import com.aviasales.interfaces.Savable;
+
+public class Ticket implements Savable {
 	private String ticketNumber;
 	private LocalDateTime ticketDate;
 	private Flight flight;
 	private String bookingCode;
 	private Person person;
-	
-	public int getTicketNumber() {
-		return ticketNumber;
-	}
 
-	private void setTicketNumber(int ticketNumber) {
-		this.ticketNumber = ticketNumber;
+	public String getTicketNumber() {
+		return ticketNumber;
 	}
 
 	public LocalDateTime getTicketDate() {
@@ -37,7 +38,7 @@ public class Ticket implements Savable{
 		return "Ticket [ticketNumber=" + ticketNumber + ", ticketDate=" + ticketDate + ", flight=" + flight.toString()
 				+ ", bookingCode=" + bookingCode + ", person=" + person.toString() + "]";
 	}
-	
+
 	public String getBookingCode() {
 		return bookingCode;
 	}
@@ -53,16 +54,31 @@ public class Ticket implements Savable{
 	public void setPerson(Person person) {
 		this.person = person;
 	}
-	
-	public Ticket(int ticketNumber, LocalDateTime ticketDate, Flight flight, String bookingCode, Person person) {
+
+	public Ticket(LocalDateTime ticketDate, Flight flight, Person person) {
 		UUID uuid = UUID.randomUUID();
-        String randomUUIDString = uuid.toString();
-		
-		super();
+		String randomUUIDString = uuid.toString();
+
+		// super();
 		this.ticketNumber = randomUUIDString;
 		this.ticketDate = ticketDate;
 		this.flight = flight;
-		this.bookingCode = bookingCode;
 		this.person = person;
+	}
+
+	@Override
+	public String makeSavebleString() {
+		// TODO Auto-generated method stub
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss.SSS");
+		String result = getTicketNumber() + ";" + getTicketDate().format(formatter) + ";" + getFlight().getNumber()
+				+ ";" + getPerson().getPassportNumber();
+
+		return result;
+	}
+
+	@Override
+	public String getClassName() {
+		// TODO Auto-generated method stub
+		return "Ticket";
 	}
 }

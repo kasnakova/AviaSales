@@ -155,7 +155,7 @@ public class Flight implements Savable{
 		return (this.numberOfFreePlaces > 0) ? true : false;
 	}
 	
-	public static Savable getObjectFromString(String line) {
+	public static Flight getObjectFromString(String line) {
 		
 		StringTokenizer st = new StringTokenizer(line,";");
 		if(!st.hasMoreTokens())

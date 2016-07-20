@@ -32,74 +32,55 @@ public class StorageAdapter<T> {
 	 * @throws IOException 
 	 */
 	private final static String DB_FILES_PATH = "src/com/aviasales/data/";
+	private static ArrayList<Flight> flights;
+	private static ArrayList<Person> persons;
 	
-	static ArrayList<Savable> loadObjects(String className) throws IOException{
-		ArrayList<Savable> objects = new ArrayList<Savable>();
+	/*static void loadObjects(ArrayList<Savable> objects, String className) throws IOException {
+		// ArrayList<Savable> objects = new ArrayList<Savable>();
 		BufferedReader br = new BufferedReader(new FileReader(DB_FILES_PATH + className + ".db"));
-	    try {
-	    	
-	        //StringBuilder sb = new StringBuilder();
-	        String line = br.readLine();
-	        while (line != null){
-	        	objects.add(Savable.getObjectFromString(line));
-	        }
-	        
-	        return objects;
-	    } finally {
-	    	
-	    	System.out.println("LOAD IS FINISHED ");
-	        br.close();
-	    }
-	}
-	
-	static ArrayList<Flight> loadFlights() throws IOException{
+		try {
 
-		ArrayList<Flight> flights = new ArrayList<Flight>();
-		
+			String line = br.readLine();
+			while (line != null) {
+				objects.add(Savable.getObjectFromString(line));
+			}
+
+			// return objects;
+		} finally {
+
+			System.out.println("LOAD IS FINISHED ");
+			br.close();
+		}
+	}*/
+	
+	static ArrayList<Flight> loadFlights() throws IOException {
+
+		flights = new ArrayList<Flight>();
+
 		BufferedReader br = new BufferedReader(new FileReader(DB_FILES_PATH + "Flights.db"));
 
-	    try {
-	        StringBuilder sb = new StringBuilder();
-	        String line = br.readLine();
+		try {
+			StringBuilder sb = new StringBuilder();
+			String line = br.readLine();
 
-	        while (line != null) {
-	            sb.append(line);
-	            sb.append("\n");
-	            
-	           StringTokenizer st = new StringTokenizer(line,";");
-			   while(st.hasMoreTokens()){
-					int  numberOfFreePlaces;
-					double cost;
-					String number, dep, arr;
-					LocalDateTime depTime, arrTime;
-			        
-			        number = st.nextElement().toString();
-			        dep = st.nextElement().toString();
-			        arr = st.nextElement().toString();
-			        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-			        depTime = LocalDateTime.parse(st.nextElement().toString(), formatter);
-			        if (depTime.isBefore(LocalDateTime.now()))
-			        	continue;
-			        arrTime = LocalDateTime.parse(st.nextElement().toString(), formatter);
-			        cost = Double.valueOf(st.nextElement().toString());
-			        numberOfFreePlaces = Integer.parseInt(st.nextElement().toString());
-			        
-			        Flight cf = new Flight(number, dep, arr, depTime, arrTime, cost, numberOfFreePlaces);
-			        flights.add(cf);
-			        System.out.println(cf.toString());
-			   }
-	           
-	           line = br.readLine();
-	           
-	        }
-	        return flights;
-	        
-	    } finally {
-	    	
-	    	System.out.println("LOAD IS FINISHED ");
-	        br.close();
-	    }
-	    
+			while (line != null) {
+				sb.append(line);
+				sb.append("\n");
+
+				Flight cf = Flight.getObjectFromString(line);
+				flights.add(cf);
+
+				line = br.readLine();
+
+			}
+			return flights;
+
+		} finally {
+
+			System.out.println("LOAD IS FINISHED ");
+			br.close();
+		}
+
 	}
 
 	/**
@@ -138,11 +119,30 @@ public class StorageAdapter<T> {
 	 * Reads a person's information from a file
 	 * @param email determines who is the person 
 	 * @return the person information
+	 * @throws IOException 
 	 */
-	static ArrayList<Person> loadPerson(String email){
-		ArrayList<Person> persons = new ArrayList<Person>();
+	static ArrayList<Person> loadPerson() throws IOException{
+		persons = new ArrayList<Person>();
 		
-		return null;
+		BufferedReader br = new BufferedReader(new FileReader(DB_FILES_PATH + "Persons.db"));
+
+	    try {
+	        StringBuilder sb = new StringBuilder();
+	        String line = br.readLine();
+
+	        while (line != null) {
+	            sb.append(line);
+	            sb.append("\n");
+	            Person p = Person.getObjectFromString(line);
+	            line = br.readLine();
+	            persons.add(p);
+	        }
+	    } finally {
+	    	
+	    	System.out.println("LOAD IS FINISHED ");
+	        br.close();
+	    }
+		return persons;
 	}
 	
 }
