@@ -25,6 +25,7 @@ public class Booking {
 			currFlight.setNumberOfFreePlaces(currFlight.getNumberOfFreePlaces()-person.size());
 			for (Person p:person) {
 				Ticket ticket= new Ticket(LocalDateTime.now(),f, p); 
+				tickets.add(ticket);
 			}
 		}
 		
