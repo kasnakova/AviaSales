@@ -36,6 +36,26 @@ public class StorageAdapter<T> {
 	private static ArrayList<Flight> flights;
 	private static ArrayList<Person> persons;
 
+	public static Person getPersonByEmail(String email){
+		Person result = null;
+		for(Person p: persons){
+			if (email.equals(p.getEmail())){
+				result = p;
+				break;
+			}
+		}
+		return result;
+	}
+	
+	public static boolean addPerson(Person person){
+		if (null == getPersonByEmail(person.getEmail())){
+			return false;
+		}else{
+			persons.add(person);
+			return true;
+		}
+	}
+	
 	/*
 	 * static void loadObjects(ArrayList<Savable> objects, String className)
 	 * throws IOException { // ArrayList<Savable> objects = new

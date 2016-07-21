@@ -59,7 +59,6 @@ public class Ticket implements Savable {
 		UUID uuid = UUID.randomUUID();
 		String randomUUIDString = uuid.toString();
 
-		// super();
 		this.ticketNumber = randomUUIDString;
 		this.ticketDate = ticketDate;
 		this.flight = flight;
