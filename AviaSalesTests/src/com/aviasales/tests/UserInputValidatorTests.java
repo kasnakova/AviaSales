@@ -3,6 +3,7 @@ package com.aviasales.tests;
 import static org.junit.Assert.assertEquals;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.junit.Test;
 
@@ -127,6 +128,86 @@ public class UserInputValidatorTests {
 		String input = Utils.parseToString(LocalDate.now());
 		boolean expected = true;
 		boolean actual = UserInputValidator.isDateValid(input);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void validateNegativeCost() {
+		String input = "-56.45";
+		boolean expected = false;
+		boolean actual = UserInputValidator.isCostValid(input);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void validateZeroCost() {
+		String input = "0";
+		boolean expected = false;
+		boolean actual = UserInputValidator.isCostValid(input);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void validateNonNumberCost() {
+		String input = "bla";
+		boolean expected = false;
+		boolean actual = UserInputValidator.isCostValid(input);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void validateCorrectCost() {
+		String input = "56.7";
+		boolean expected = true;
+		boolean actual = UserInputValidator.isCostValid(input);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void validateDateTimeInIncorrectFormat() {
+		String input = "20/07/2016 12-45";
+		boolean expected = false;
+		boolean actual = UserInputValidator.isDateTimeValid(input);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void validateDateTimeWithIncorrectHour() {
+		String input = "07/07/2016 45:45";
+		boolean expected = false;
+		boolean actual = UserInputValidator.isDateTimeValid(input);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void validateDateTimeWithIncorrectMinutes() {
+		String input = "07/07/2016 11:89";
+		boolean expected = false;
+		boolean actual = UserInputValidator.isDateTimeValid(input);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void validateEmptyDateTime() {
+		String input = "";
+		boolean expected = false;
+		boolean actual = UserInputValidator.isDateTimeValid(input);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void validateAlreadyPassedDateTime() {
+		String input = "20/07/2011";
+		boolean expected = false;
+		boolean actual = UserInputValidator.isDateTimeValid(input);
+		assertEquals(expected, actual);
+	}
+	
+	@Test
+	public void validateCorrectDateTime() {
+		String input = "20/12/2320 20:30";
+		boolean expected = true;
+		boolean actual = UserInputValidator.isDateTimeValid(input);
 		assertEquals(expected, actual);
 	}
 }

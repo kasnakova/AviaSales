@@ -1,6 +1,7 @@
 package com.aviasales.utilities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -9,9 +10,15 @@ import java.time.format.DateTimeFormatter;
  */
 public class Utils {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private static final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
     
     public static LocalDate parseToLocalDate(String dateStr){
         LocalDate date = LocalDate.parse(dateStr, dateFormatter);
+        return date;
+    }
+    
+    public static LocalDateTime parseToLocalDateTime(String dateStr){
+        LocalDateTime date = LocalDateTime.parse(dateStr, dateTimeFormatter);
         return date;
     }
     

@@ -13,7 +13,15 @@ import javax.swing.JOptionPane;
  * @author Liza
  */
 public class MessageBoxes {
-    public static void showErrorMessageBox(Component component, String message){
+    public static void showInvalidInputMessageBox(Component component, String message){
          JOptionPane.showMessageDialog(component, message, "Invalid input", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static void showErrorMessageBox(Component component, String message){
+         JOptionPane.showMessageDialog(component, message, "Problem", JOptionPane.ERROR_MESSAGE);
+    }
+    
+    public static void showSuccessMessageBox(Component component, String message){
+         JOptionPane.showMessageDialog(component, message, "Success", JOptionPane.INFORMATION_MESSAGE);
     }
 }

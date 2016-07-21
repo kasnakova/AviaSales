@@ -1,6 +1,7 @@
 package com.aviasales.utilities;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 /**
@@ -36,10 +37,37 @@ public class UserInputValidator {
         }
     }
     
+    public static boolean isCostValid(String costStr){
+    	try{
+            double cost = Double.parseDouble(costStr);
+            if(cost > 0){
+                return true;
+            } else {
+                return false;
+            }
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+    
     public static boolean isDateValid(String dateStr){
         try{
             LocalDate date = Utils.parseToLocalDate(dateStr);
             LocalDate now = LocalDate.now();
+            if(date.compareTo(now) >= 0){
+                return true;
+            } else {
+                return false;
+            }
+        } catch(DateTimeParseException e){
+            return false;
+        }
+    }
+    
+    public static boolean isDateTimeValid(String dateStr){
+        try{
+            LocalDateTime date = Utils.parseToLocalDateTime(dateStr);
+            LocalDateTime now = LocalDateTime.now();
             if(date.compareTo(now) >= 0){
                 return true;
             } else {

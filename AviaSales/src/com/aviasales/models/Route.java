@@ -48,7 +48,15 @@ public class Route {
 	}
 	@Override
 	public String toString() {
-		return "Route [flights=" + flights + ", cost=" + cost + "]";
+		StringBuilder sb = new StringBuilder();
+                sb.append("<html>");
+		for(Flight flight : flights){
+			sb.append(flight);
+			sb.append("<br/>");
+		}
+		
+                sb.append("</html>");
+		return sb.toString();//"Route [flights=" + flights + ", cost=" + cost + "]";
 	}
 
 }

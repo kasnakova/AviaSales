@@ -46,7 +46,7 @@ public class Analizator {
 		LocalDate	depDate=sp.getDepDate();
 
 		for (Flight f : flights) {
-			if ((f.getDep() == dep) && (f.getDepTime().toLocalDate().isEqual(depDate)
+			if ((f.getDep().toLowerCase().equals(dep.toLowerCase())) && (f.getDepTime().toLocalDate().isEqual(depDate)
 					&&(f.getNumberOfFreePlaces() >= sp.getPersonCount()))) {
 
 				if (isEndFlight(f,arr)) {
@@ -57,8 +57,8 @@ public class Analizator {
 				}
 			}
 		}
+		
 		return result;
-
 	}
 
 	private static void SearchConnectedFlights(Flight flight,String arr,int personCount) throws IOException {
@@ -77,7 +77,7 @@ public class Analizator {
 	public static boolean isConnectingFlight(Flight f1,Flight f2){
 	    LocalDateTime minDate = f1.getArrTime().plusHours(1);
 	    LocalDateTime maxDate = f1.getArrTime().plusHours(9);
-	    if((f1.getArr()==f2.getDep()) &&(f2.getDepTime().isAfter(minDate)) &&(f2.getDepTime().isBefore(maxDate))){
+	    if((f1.getArr().toLowerCase().equals(f2.getDep().toLowerCase())) &&(f2.getDepTime().isAfter(minDate)) &&(f2.getDepTime().isBefore(maxDate))){
 	    	return true;
 	    }else{
 	    	return false;
@@ -85,7 +85,7 @@ public class Analizator {
 	  }
 	
 	  public static boolean isEndFlight(Flight f,String arr){
-	    if (f.getArr()==arr)
+	    if (f.getArr().toLowerCase().equals(arr.toLowerCase()))
 	      return true;
 	    else
 	      return false;

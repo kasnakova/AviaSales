@@ -33,7 +33,6 @@ public class AnalizatorTest {
 	
 	private static SearchParams getTestSearchParams() {
 		SearchParams sp = new SearchParams("KAZAN", "KISLOVODSK", LocalDate.of(2016, Month.AUGUST, 14), 2);
-
 		return sp;
 	}
 	

@@ -43,14 +43,14 @@ public class StorageAdapterTest {
 		final String DB_FILES_PATH = "src/";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 		LocalDateTime d = LocalDateTime.parse("25.07.2016 12:00", formatter);
-		ArrayList<Savable> fs = new ArrayList<Savable>();	
+		ArrayList<Flight> fs = new ArrayList<Flight>();	
 		
 		for (int i=0; i<10; i++){
 			Flight f = new Flight("99A3", "LGW", "DMD", d, d, 123.4, 20);
 			fs.add(f);
 		}
 		StorageAdapter.saveObject(fs);
-		assert(1 == StorageAdapter.saveObject(fs));
+		assert(true == StorageAdapter.saveObject(fs));
 		
 	}
 
@@ -62,7 +62,7 @@ public class StorageAdapterTest {
 		fail("Not yet implemented");
 	}
 
-	@Test public void testLoadObjects() throws IOException{
+/*	@Test public void testLoadObjects() throws IOException{
 		ArrayList<Flight> s = StorageAdapter.loadFlights();
 		ArrayList<Flight> f = new ArrayList<Flight>();
 		for(Savable flight:s){
@@ -73,6 +73,6 @@ public class StorageAdapterTest {
 		System.out.println(f.size());
 		assert(f.size() == 10);
 		
-	}
+	}*/
 	
 }

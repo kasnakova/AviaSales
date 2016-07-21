@@ -1,23 +1,22 @@
 package com.aviasales.ui;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
+
 import com.aviasales.logic.Analizator;
+import com.aviasales.models.Flight;
 import com.aviasales.models.Route;
 import com.aviasales.models.SearchParams;
 import com.aviasales.utilities.UserInputValidator;
 import com.aviasales.utilities.Utils;
-import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.GregorianCalendar;
-import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFormattedTextField.AbstractFormatter;
-import javax.swing.JOptionPane;
+import java.util.List;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -30,6 +29,8 @@ import javax.swing.JOptionPane;
  * @author Liza
  */
 public class AviaSalesUI extends javax.swing.JFrame {
+    private List<Route> routes;
+    
     /**
      * Creates new form AviaSalesUI
      */
@@ -219,15 +220,15 @@ public class AviaSalesUI extends javax.swing.JFrame {
         String to = txtToAirport.getText();
         boolean isReturn = chkTwoWayFlight.isSelected();
         if(UserInputValidator.isNullOrEmpty(from)){
-           MessageBoxes.showErrorMessageBox(this, "Please enter from which airport you want to travel.");
+           MessageBoxes.showInvalidInputMessageBox(this, "Please enter from which airport you want to travel.");
         }else if(UserInputValidator.isNullOrEmpty(to)){
-            MessageBoxes.showErrorMessageBox(this, "Please enter to which airport you want to travel.");
+            MessageBoxes.showInvalidInputMessageBox(this, "Please enter to which airport you want to travel.");
         } else if(!UserInputValidator.isDateValid(txtDate.getText())) {
-             MessageBoxes.showErrorMessageBox(this, "Please enter a valid date in the described format and one that hadn't passed already.");
+             MessageBoxes.showInvalidInputMessageBox(this, "Please enter a valid date in the described format and one that hadn't passed already.");
         } else if(isReturn && !UserInputValidator.isDateValid(txtReturnDate.getText())) {
-             MessageBoxes.showErrorMessageBox(this, "Please enter a valid return date in the described format and one that hadn't passed already.");
+             MessageBoxes.showInvalidInputMessageBox(this, "Please enter a valid return date in the described format and one that hadn't passed already.");
         } else if(!UserInputValidator.isPersonCountValid(txtPersonCount.getText())) {
-             MessageBoxes.showErrorMessageBox(this, "Please enter a valid person count.");
+             MessageBoxes.showInvalidInputMessageBox(this, "Please enter a valid person count.");
         } else {
             LocalDate date = Utils.parseToLocalDate(txtDate.getText()); 
             int personCount = Integer.parseInt(txtPersonCount.getText());
@@ -236,17 +237,16 @@ public class AviaSalesUI extends javax.swing.JFrame {
                 returnDate = Utils.parseToLocalDate(txtReturnDate.getText());
             }
 
-            //SearchParams sp = new SearchParams(from, to, date, personCount);
-            SearchParams sp = new SearchParams("KAZAN", "KISLOVODSK", LocalDate.of(2016, Month.AUGUST, 14), 2);
+            SearchParams sp = new SearchParams(from, to, date, personCount);
+            //SearchParams sp = new SearchParams("KAZAN", "KISLOVODSK", LocalDate.of(2016, Month.AUGUST, 14), 2);
 
-            ArrayList<Route> routes = null;
             try {
                 routes = Analizator.searchFlights(sp);
             } catch (IOException ex) {
                 Logger.getLogger(AviaSalesUI.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-            if(routes != null){
+            if(routes != null && routes.size() > 0){
                 String[] routeData = new String[routes.size()];
                 for (int i = 0; i < routeData.length; i++) {
                     routeData[i] = routes.get(i).toString();
@@ -260,7 +260,9 @@ public class AviaSalesUI extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void listOfRoutesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listOfRoutesMouseClicked
-        PersonalInfoFrame frame = new PersonalInfoFrame();
+        int selectedRouteIndex = listOfRoutes.getSelectedIndex();
+        Route route = routes.get(selectedRouteIndex);
+        PersonalInfoFrame frame = new PersonalInfoFrame(route);
         frame.setVisible(true);
     }//GEN-LAST:event_listOfRoutesMouseClicked
 
