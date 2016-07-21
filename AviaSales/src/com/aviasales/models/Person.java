@@ -21,7 +21,7 @@ public class Person implements Savable {
 	private String email;
 	private String phoneNumber;
 	private String creditCardNumber;
-	private final String CLASS_NAME = "Flights";
+	private final String CLASS_NAME = "Person";
 
 	public Person(String firstName, String serName, String passportNumber, LocalDate birthDay, String email,
 			String phoneNumber, String creditCardNumber) {
