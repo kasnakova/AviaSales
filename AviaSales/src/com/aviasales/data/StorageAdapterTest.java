@@ -1,17 +1,15 @@
 package com.aviasales.data;
-import com.aviasales.interfaces.Savable;
-import com.aviasales.data.StorageAdapter;
-import com.aviasales.models.Flight;
 import static org.junit.Assert.fail;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.junit.Test;
+
+import com.aviasales.models.Flight;
+import com.aviasales.models.Person;
 
 /**
  * 
@@ -51,28 +49,16 @@ public class StorageAdapterTest {
 		}
 		StorageAdapter.saveObject(fs);
 		assert(1 == StorageAdapter.saveObject(fs));
-		
 	}
 
 	/**
 	 * Test method for {@link StorageAdapter#loadPerson(java.lang.String)}.
+	 * @throws IOException 
 	 */
 	@Test
-	public void testLoadPerson() {
-		fail("Not yet implemented");
+	public void testLoadPerson() throws IOException {
+		ArrayList<Person> f = new ArrayList<Person>();
+		f = StorageAdapter.loadPerson();
+		assert(10 == f.size());
 	}
-
-/*	@Test public void testLoadObjects() throws IOException{
-		ArrayList<Savable> s = StorageAdapter.loadObjects("Flight");
-		ArrayList<Flight> f = new ArrayList<Flight>();
-		for(Savable flight:s){
-			f.add((Flight) flight);
-		}
-		for(Flight fl:f)
-			System.out.println(fl.toString());
-		System.out.println(f.size());
-		assert(f.size() == 10);
-		
-	}*/
-	
 }

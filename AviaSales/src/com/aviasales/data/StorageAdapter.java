@@ -35,24 +35,6 @@ public class StorageAdapter<T> {
 	private static ArrayList<Flight> flights;
 	private static ArrayList<Person> persons;
 	
-	/*static void loadObjects(ArrayList<Savable> objects, String className) throws IOException {
-		// ArrayList<Savable> objects = new ArrayList<Savable>();
-		BufferedReader br = new BufferedReader(new FileReader(DB_FILES_PATH + className + ".db"));
-		try {
-
-			String line = br.readLine();
-			while (line != null) {
-				objects.add(Savable.getObjectFromString(line));
-			}
-
-			// return objects;
-		} finally {
-
-			System.out.println("LOAD IS FINISHED ");
-			br.close();
-		}
-	}*/
-	
 	static ArrayList<Flight> loadFlights() throws IOException {
 
 		flights = new ArrayList<Flight>();

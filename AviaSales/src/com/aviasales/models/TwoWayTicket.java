@@ -13,7 +13,7 @@ public class TwoWayTicket extends Ticket{
 	private Flight returnFlight;
 
 	public TwoWayTicket(int ticketNumber, LocalDateTime ticketDate, Flight flight, String bookingCode, Person person, Flight returnFlight) {
-		super(ticketNumber, ticketDate, flight, bookingCode, person);
+		super(ticketDate, flight, person);
 		setReturnFlight(returnFlight);
 		// TODO Auto-generated constructor stub
 	}
