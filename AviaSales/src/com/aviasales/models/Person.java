@@ -114,7 +114,11 @@ public class Person implements Savable {
 				+ ", birthDay=" + birthDay + ", email=" + email + ", phoneNumber=" + phoneNumber + ", creditCardNumber="
 				+ creditCardNumber + ", CLASS_NAME=" + CLASS_NAME + "]";
 	}
-
+	/**
+	 * 
+	 * @param line
+	 * @return
+	 */
 	public static Person getObjectFromString(String line) {
 
 		StringTokenizer st = new StringTokenizer(line, ";");
