@@ -14,12 +14,11 @@ import com.aviasales.models.Route;
 import com.aviasales.models.SearchParams;
 
 public class AnalizatorTest {
-	
-	
+
 	@Test
 	public void TestData() throws IOException {
 		ArrayList<Flight> flights = getTestFlightData();
-		assert (9 == flights.size());
+		assert(9 == flights.size());
 
 	}
 
@@ -28,14 +27,14 @@ public class AnalizatorTest {
 
 		SearchParams sp = getTestSearchParams();
 		ArrayList<Route> Routes = Analizator.searchFlights(sp);
-		assert (Routes.size() == 2);
+		assert(Routes.size() == 2);
 	}
-	
+
 	private static SearchParams getTestSearchParams() {
 		SearchParams sp = new SearchParams("KAZAN", "KISLOVODSK", LocalDate.of(2016, Month.AUGUST, 14), 2);
 		return sp;
 	}
-	
+
 	private static ArrayList<Flight> getTestFlightData() throws IOException {
 
 		ArrayList<Flight> flights = new ArrayList<Flight>();

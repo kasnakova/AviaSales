@@ -68,7 +68,6 @@ public class Ticket implements Savable {
 
 	@Override
 	public String makeSavebleString() {
-		// TODO Auto-generated method stub
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss.SSS");
 		String result = getTicketNumber() + ";" + getTicketDate().format(formatter) + ";" + getFlight().getNumber()
 				+ ";" + getPerson().getPassportNumber();
@@ -78,7 +77,6 @@ public class Ticket implements Savable {
 
 	@Override
 	public String getClassName() {
-		// TODO Auto-generated method stub
 		return "Ticket";
 	}
 }

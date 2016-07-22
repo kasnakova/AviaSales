@@ -16,6 +16,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.StringTokenizer;
 
 /**
@@ -35,20 +36,6 @@ public class StorageAdapter<T> {
 	private final static String DB_FILES_PATH = "../AviaSalesDb/";
 	private static ArrayList<Flight> flights;
 	private static ArrayList<Person> persons;
-
-	/*
-	 * static void loadObjects(ArrayList<Savable> objects, String className)
-	 * throws IOException { // ArrayList<Savable> objects = new
-	 * ArrayList<Savable>(); BufferedReader br = new BufferedReader(new
-	 * FileReader(DB_FILES_PATH + className + ".db")); try {
-	 * 
-	 * String line = br.readLine(); while (line != null) {
-	 * objects.add(Savable.getObjectFromString(line)); }
-	 * 
-	 * // return objects; } finally {
-	 * 
-	 * System.out.println("LOAD IS FINISHED "); br.close(); } }
-	 */
 
 	public static ArrayList<Flight> loadFlights() throws IOException {
 
@@ -75,18 +62,33 @@ public class StorageAdapter<T> {
 			return flights;
 
 		} finally {
-
-			System.out.println("LOAD IS FINISHED ");
 			br.close();
 		}
 
 	}
 
 	/**
+	 * Adds a new flight entered from an administrator to the current list of
+	 * flights and then saves them to the file
+	 * 
+	 * @param flight
+	 *            The flight to be added
+	 * @return true if adding is successful, false otherwise
+	 */
+	public static boolean addFlight(Flight flight) {
+		try {
+			loadFlights();
+			flights.add(flight);
+			return saveObject(flights);
+		} catch (IOException e) {
+			return false;
+		}
+	}
+
+	/**
 	 * save array list of child of Savable interface to file
 	 * 
 	 * @param objects
-	 * @throws IOException
 	 * @return
 	 */
 	public static <T extends Savable> boolean saveObject(ArrayList<T> objects) {
@@ -95,20 +97,18 @@ public class StorageAdapter<T> {
 		if (objects.isEmpty())
 			return true;
 		try {
-                    outputWriter = new BufferedWriter(new FileWriter(DB_FILES_PATH + objects.get(0).getClassName() + ".db"));
+			outputWriter = new BufferedWriter(new FileWriter(DB_FILES_PATH + objects.get(0).getClassName() + ".db"));
 
-                    System.out.println(DB_FILES_PATH + objects.get(0).getClassName() + ".db");
-                    for (int i = 0; i < objects.size(); i++) {
-                            outputWriter.write(objects.get(i).makeSavebleString());
-                            outputWriter.newLine();
-                            System.out.println(objects.get(i).makeSavebleString());
-                    }
-                    outputWriter.flush();
-                    outputWriter.close();
+			for (int i = 0; i < objects.size(); i++) {
+				outputWriter.write(objects.get(i).makeSavebleString());
+				outputWriter.newLine();
+			}
+			outputWriter.flush();
+			outputWriter.close();
 
-                    return true;
+			return true;
 		} catch (IOException e) {
-                    return false;
+			return false;
 		}
 	}
 
@@ -123,7 +123,7 @@ public class StorageAdapter<T> {
 	public static ArrayList<Person> loadPerson() throws IOException {
 		persons = new ArrayList<Person>();
 
-		BufferedReader br = new BufferedReader(new FileReader(DB_FILES_PATH + "Persons.db"));
+		BufferedReader br = new BufferedReader(new FileReader(DB_FILES_PATH + "Person.db"));
 
 		try {
 			StringBuilder sb = new StringBuilder();
@@ -137,21 +137,83 @@ public class StorageAdapter<T> {
 				persons.add(p);
 			}
 		} finally {
-
-			System.out.println("LOAD IS FINISHED ");
 			br.close();
 		}
 		return persons;
 	}
-        
-        public static boolean addFlight(Flight flight){
-            try{
-                loadFlights();
-                flights.add(flight);
-                return saveObject(flights);
-            }catch(IOException e){
-                return false;
-            }
-        }
 
+	public static boolean saveFlights() {
+		return saveObject(flights);
+	}
+
+	/**
+	 * Check if there is any personal info saved for a person with the provided
+	 * email
+	 * 
+	 * @param email
+	 *            the provided email
+	 * @return the person, containing the rest of his info
+	 */
+	public static Person getPersonByEmail(String email) {
+		Person result = null;
+
+		if (loadPeople()) {
+			for (Person p : persons) {
+				if (email.equals(p.getEmail())) {
+					result = p;
+					break;
+				}
+			}
+		}
+
+		return result;
+	}
+
+	/**
+	 * Adding the personal information to our database
+	 * 
+	 * @param person
+	 *            the personal information
+	 * @return true if adding is successful, false otherwise
+	 */
+	public static boolean addPerson(Person person) {
+		if (loadPeople()) {
+			persons.add(person);
+			saveObject(persons);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Add a range of people's personal information to our database
+	 * @param people the people's information to be added
+	 * @return true if adding is successful, false otherwise
+	 */
+	public static boolean addPeople(List<Person> people) {
+		if (loadPeople()) {
+			persons.addAll(people);
+			saveObject(persons);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Load all the people's personal information that we have from our database
+	 * @return true if loading was successful, false otherwise
+	 */
+	private static boolean loadPeople() {
+		if (persons == null) {
+			try {
+				persons = loadPerson();
+			} catch (IOException e) {
+				return false;
+			}
+		}
+
+		return true;
+	}
 }

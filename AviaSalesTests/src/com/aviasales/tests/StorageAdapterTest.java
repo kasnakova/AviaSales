@@ -1,4 +1,5 @@
-package com.aviasales.data;
+package com.aviasales.tests;
+
 import com.aviasales.interfaces.Savable;
 import com.aviasales.data.StorageAdapter;
 import com.aviasales.models.Flight;
@@ -25,7 +26,8 @@ public class StorageAdapterTest {
 
 	/**
 	 * Test method for {@link StorageAdapter#loadFlights()}.
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	@Test
 	public void testLoadFlights() throws IOException {
@@ -36,43 +38,22 @@ public class StorageAdapterTest {
 
 	/**
 	 * Test method for {@link StorageAdapter#saveObject(java.util.ArrayList)}.
-	 * @throws IOException 
+	 * 
+	 * @throws IOException
 	 */
 	@Test
 	public void testSaveObject() throws IOException {
 		final String DB_FILES_PATH = "src/";
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 		LocalDateTime d = LocalDateTime.parse("25.07.2016 12:00", formatter);
-		ArrayList<Flight> fs = new ArrayList<Flight>();	
-		
-		for (int i=0; i<10; i++){
+		ArrayList<Flight> fs = new ArrayList<Flight>();
+
+		for (int i = 0; i < 10; i++) {
 			Flight f = new Flight("99A3", "LGW", "DMD", d, d, 123.4, 20);
 			fs.add(f);
 		}
 		StorageAdapter.saveObject(fs);
 		assert(true == StorageAdapter.saveObject(fs));
-		
-	}
 
-	/**
-	 * Test method for {@link StorageAdapter#loadPerson(java.lang.String)}.
-	 */
-	@Test
-	public void testLoadPerson() {
-		fail("Not yet implemented");
 	}
-
-/*	@Test public void testLoadObjects() throws IOException{
-		ArrayList<Flight> s = StorageAdapter.loadFlights();
-		ArrayList<Flight> f = new ArrayList<Flight>();
-		for(Savable flight:s){
-			f.add((Flight) flight);
-		}
-		for(Flight fl:f)
-			System.out.println(fl.toString());
-		System.out.println(f.size());
-		assert(f.size() == 10);
-		
-	}*/
-	
 }

@@ -5,13 +5,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.StringTokenizer;
 
-
 /**
  * Information about a flight
+ * 
  * @author ildarworld
  *
  */
-public class Flight implements Savable{
+public class Flight implements Savable {
 	private String number;
 	private double cost;
 	private int numberOfFreePlaces;
@@ -20,81 +20,92 @@ public class Flight implements Savable{
 	private LocalDateTime depTime;
 	private LocalDateTime arrTime;
 	private final String CLASS_NAME = "Flights";
-	
+
 	/**
 	 * 
-	 * @param number of Flight
-	 * @param dep departure airport
-	 * @param arr arrive airport
-	 * @param depTime departive time
-	 * @param arrTimearrive time
-	 * @param cost flight cost
-	 * @param numberOfFreePlaces number of free places on this board
+	 * @param number
+	 *            of Flight
+	 * @param dep
+	 *            departure airport
+	 * @param arr
+	 *            arrive airport
+	 * @param depTime
+	 *            departive time
+	 * @param arrTimearrive
+	 *            time
+	 * @param cost
+	 *            flight cost
+	 * @param numberOfFreePlaces
+	 *            number of free places on this board
 	 */
-	public Flight(String number, String dep, String arr, LocalDateTime depTime, 
-			LocalDateTime arrTime, double cost, int numberOfFreePlaces){
-        this.number = number;
-        this.dep = dep;
-        this.arr = arr;
-        this.depTime = depTime;
-        this.arrTime = arrTime;
-        this.cost = cost;
-        this.numberOfFreePlaces = numberOfFreePlaces;
-	}
-	
-	public String getNumber(){
-		return number;
-	}
-	public double getCost(){
-		return cost;
-	}
-	public int getNumberOfFreePlaces(){
-		return numberOfFreePlaces;
-	}
-	public String getDep(){
-		return dep;
-	}
-	public String getArr(){
-		return arr;
-	}
-	public LocalDateTime getDepTime(){
-		return depTime;
-	}
-	
-	public LocalDateTime getArrTime(){
-		return arrTime;
-	}
-	
-	public void setNumber(String number){
+	public Flight(String number, String dep, String arr, LocalDateTime depTime, LocalDateTime arrTime, double cost,
+			int numberOfFreePlaces) {
 		this.number = number;
-	}
-	
-	public void setCost(double cost){
+		this.dep = dep;
+		this.arr = arr;
+		this.depTime = depTime;
+		this.arrTime = arrTime;
 		this.cost = cost;
-	}
-	
-	public void setNumberOfFreePlaces(int numberOfFreePlaces){
 		this.numberOfFreePlaces = numberOfFreePlaces;
 	}
-	
-	public void setDep(String dep){
+
+	public String getNumber() {
+		return number;
+	}
+
+	public double getCost() {
+		return cost;
+	}
+
+	public int getNumberOfFreePlaces() {
+		return numberOfFreePlaces;
+	}
+
+	public String getDep() {
+		return dep;
+	}
+
+	public String getArr() {
+		return arr;
+	}
+
+	public LocalDateTime getDepTime() {
+		return depTime;
+	}
+
+	public LocalDateTime getArrTime() {
+		return arrTime;
+	}
+
+	public void setNumber(String number) {
+		this.number = number;
+	}
+
+	public void setCost(double cost) {
+		this.cost = cost;
+	}
+
+	public void setNumberOfFreePlaces(int numberOfFreePlaces) {
+		this.numberOfFreePlaces = numberOfFreePlaces;
+	}
+
+	public void setDep(String dep) {
 		this.dep = dep;
 	}
-	
-	public void setArr(String arr){
+
+	public void setArr(String arr) {
 		this.arr = arr;
 	}
-	
-	public void setDepTime(LocalDateTime depTime){
+
+	public void setDepTime(LocalDateTime depTime) {
 		this.depTime = depTime;
 	}
-	
-	public void setArrTime(LocalDateTime arrTime){
+
+	public void setArrTime(LocalDateTime arrTime) {
 		this.arrTime = arrTime;
 	}
-	
-	
-	public String toString(){
+
+	public String toString() {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
 		StringBuilder tmpConnector = new StringBuilder();
 		tmpConnector.append(" Flight number: " + this.number);
@@ -103,68 +114,52 @@ public class Flight implements Savable{
 		tmpConnector.append(" Departure time: " + this.depTime.format(formatter));
 		tmpConnector.append(" Arrive time: " + this.arrTime.format(formatter));
 		tmpConnector.append(" Cost: " + this.cost);
-		//tmpConnector.append(" Number of free places: " + this.numberOfFreePlaces);
 		return tmpConnector.toString();
 	}
-	
-	/*public boolean isConnectingFlight(Flight flight){
-	    LocalDateTime minDate = this.arrTime.plusHours(1);
-	    LocalDateTime maxDate = this.arrTime.plusHours(9);
-	    if((this.getArr()==flight.getDep()) &&(flight.depTime.isAfter(minDate)) &&(flight.depTime.isBefore(maxDate))){
-	    	return true;
-	    }else{
-	    	return false;
-	    }
-	  }
-	
-	  public boolean isEndFlight(SearchParams sp){
-	    if (this.arr==sp.getArr())
-	      return true;
-	    else
-	      return false;
-	  }*/
 
 	@Override
 	public String makeSavebleString() {
 		// TODO Auto-generated method stub
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm");
-		String result = getNumber() + ";" + getDep() + ";" + getArr() + ";" + getDepTime().format(formatter) +";" + 
-						getArrTime().format(formatter) + ";" + getCost() + ";" + getNumberOfFreePlaces();
-		
+		String result = getNumber() + ";" + getDep() + ";" + getArr() + ";" + getDepTime().format(formatter) + ";"
+				+ getArrTime().format(formatter) + ";" + getCost() + ";" + getNumberOfFreePlaces();
+
 		return result;
 	}
 
 	@Override
 	public String getClassName() {
-		// TODO Auto-generated method stub
 		return CLASS_NAME;
 	}
+
 	/**
 	 * 
-	 * @param count number of buying tickets
-	 * @return 1 if free places on the flight enough to buying and -1 if doesn't enough
+	 * @param count
+	 *            number of buying tickets
+	 * @return 1 if free places on the flight enough to buying and -1 if doesn't
+	 *         enough
 	 */
-	public int buyTickets(int count){
+	public int buyTickets(int count) {
 		if (this.numberOfFreePlaces >= count)
 			return -1;
-		this.numberOfFreePlaces -= count; 
+		this.numberOfFreePlaces -= count;
 		return 1;
 	}
-	
-	public boolean isFull(){
+
+	public boolean isFull() {
 		return (this.numberOfFreePlaces > 0) ? true : false;
 	}
-	
+
 	public static Flight getObjectFromString(String line) {
-		
-		StringTokenizer st = new StringTokenizer(line,";");
-		if(!st.hasMoreTokens())
+
+		StringTokenizer st = new StringTokenizer(line, ";");
+		if (!st.hasMoreTokens())
 			return null;
-		int  numberOfFreePlaces;
+		int numberOfFreePlaces;
 		double cost;
 		String number, dep, arr;
 		LocalDateTime depTime, arrTime;
-		
+
 		number = st.nextElement().toString();
 		dep = st.nextElement().toString();
 		arr = st.nextElement().toString();
@@ -175,7 +170,7 @@ public class Flight implements Savable{
 		arrTime = LocalDateTime.parse(st.nextElement().toString(), formatter);
 		cost = Double.valueOf(st.nextElement().toString());
 		numberOfFreePlaces = Integer.parseInt(st.nextElement().toString());
-		        
+
 		Flight cf = new Flight(number, dep, arr, depTime, arrTime, cost, numberOfFreePlaces);
 		return cf;
 	}

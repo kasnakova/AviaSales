@@ -1,4 +1,5 @@
 package com.aviasales.models;
+
 import java.time.LocalDate;
 
 /**
@@ -14,7 +15,7 @@ public class SearchParams {
 	private LocalDate depDate;
 	private int personCount;
 
-	public SearchParams(String dep, String arr, LocalDate depDate,int personCount) {
+	public SearchParams(String dep, String arr, LocalDate depDate, int personCount) {
 		this.arr = arr;
 		this.dep = dep;
 		this.depDate = depDate;
@@ -38,7 +39,8 @@ public class SearchParams {
 
 	@Override
 	public String toString() {
-		return "SearchParams [dep=" + dep + ", arr=" + arr + ", depDate=" + depDate + ",  personCount=" + personCount + "]";
+		return "SearchParams [dep=" + dep + ", arr=" + arr + ", depDate=" + depDate + ",  personCount=" + personCount
+				+ "]";
 	}
 
 	public int getPersonCount() {

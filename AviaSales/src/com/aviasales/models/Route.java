@@ -1,4 +1,5 @@
 package com.aviasales.models;
+
 import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.ArrayList;
@@ -11,17 +12,18 @@ import java.util.ArrayList;
  */
 
 public class Route {
-	public ArrayList<Flight> flights=new ArrayList<Flight>();
-	
+	public ArrayList<Flight> flights = new ArrayList<Flight>();
+
 	private double cost;
 
 	public Route(ArrayList<Flight> flights) {
-		for(Flight f:flights){
+		for (Flight f : flights) {
 			this.flights.add(f);
 		}
-		
+
 		calculateTotalCost();
 	}
+
 	public Route(Flight flight) {
 		this.flights.add(flight);
 		calculateTotalCost();
@@ -43,20 +45,21 @@ public class Route {
 	 * Calculates the total cost of all flights in the route
 	 */
 	private void calculateTotalCost() {
-		//TO DO
+		// TO DO
 
 	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-                sb.append("<html>");
-		for(Flight flight : flights){
+		sb.append("<html>");
+		for (Flight flight : flights) {
 			sb.append(flight);
 			sb.append("<br/>");
 		}
-		
-                sb.append("</html>");
-		return sb.toString();//"Route [flights=" + flights + ", cost=" + cost + "]";
+
+		sb.append("</html>");
+		return sb.toString();
 	}
 
 }

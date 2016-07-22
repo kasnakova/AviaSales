@@ -9,19 +9,21 @@ import java.awt.Component;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * A helper class containing different types of commonly used throughout the
+ * project MessageBoxes
+ * 
  * @author Liza
  */
 public class MessageBoxes {
-    public static void showInvalidInputMessageBox(Component component, String message){
-         JOptionPane.showMessageDialog(component, message, "Invalid input", JOptionPane.ERROR_MESSAGE);
-    }
-    
-    public static void showErrorMessageBox(Component component, String message){
-         JOptionPane.showMessageDialog(component, message, "Problem", JOptionPane.ERROR_MESSAGE);
-    }
-    
-    public static void showSuccessMessageBox(Component component, String message){
-         JOptionPane.showMessageDialog(component, message, "Success", JOptionPane.INFORMATION_MESSAGE);
-    }
+	public static void showInvalidInputMessageBox(Component component, String message) {
+		JOptionPane.showMessageDialog(component, message, "Invalid input", JOptionPane.ERROR_MESSAGE);
+	}
+
+	public static void showErrorMessageBox(Component component, String message) {
+		JOptionPane.showMessageDialog(component, message, "Problem", JOptionPane.ERROR_MESSAGE);
+	}
+
+	public static void showSuccessMessageBox(Component component, String message) {
+		JOptionPane.showMessageDialog(component, message, "Success", JOptionPane.INFORMATION_MESSAGE);
+	}
 }

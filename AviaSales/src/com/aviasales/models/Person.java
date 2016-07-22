@@ -20,11 +20,10 @@ public class Person implements Savable {
 	private LocalDate birthDay;
 	private String email;
 	private String phoneNumber;
-	private String creditCardNumber;
-	private final String CLASS_NAME = "Flights";
+	private final String CLASS_NAME = "Person";
 
 	public Person(String firstName, String serName, String passportNumber, LocalDate birthDay, String email,
-			String phoneNumber, String creditCardNumber) {
+			String phoneNumber) {
 
 		this.firstName = firstName;
 		this.serName = serName;
@@ -32,7 +31,6 @@ public class Person implements Savable {
 		this.birthDay = birthDay;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.creditCardNumber = creditCardNumber;
 
 	}
 
@@ -84,21 +82,11 @@ public class Person implements Savable {
 		this.phoneNumber = phoneNumber;
 	}
 
-	public String getCreditCardNumber() {
-		return creditCardNumber;
-	}
-
-	public void setCreditCardNumber(String creditCardNumber) {
-		this.creditCardNumber = creditCardNumber;
-	}
-
 	@Override
 	public String makeSavebleString() {
-		// TODO Auto-generated method stub
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
 		String result = getFirstName() + ";" + getSerName() + ";" + getPassportNumber() + ";"
-				+ getBirthDay().format(formatter) + ";" + getEmail() + ";" + getPhoneNumber() + ";"
-				+ getCreditCardNumber();
+				+ getBirthDay().format(formatter) + ";" + getEmail() + ";" + getPhoneNumber();
 
 		return result;
 	}
@@ -111,10 +99,15 @@ public class Person implements Savable {
 	@Override
 	public String toString() {
 		return "Person [firstName=" + firstName + ", serName=" + serName + ", passportNumber=" + passportNumber
-				+ ", birthDay=" + birthDay + ", email=" + email + ", phoneNumber=" + phoneNumber + ", creditCardNumber="
-				+ creditCardNumber + ", CLASS_NAME=" + CLASS_NAME + "]";
+				+ ", birthDay=" + birthDay + ", email=" + email + ", phoneNumber=" + phoneNumber + ", CLASS_NAME="
+				+ CLASS_NAME + "]";
 	}
 
+	/**
+	 * 
+	 * @param line
+	 * @return
+	 */
 	public static Person getObjectFromString(String line) {
 
 		StringTokenizer st = new StringTokenizer(line, ";");
@@ -131,9 +124,8 @@ public class Person implements Savable {
 		birthDay = LocalDate.parse(st.nextElement().toString(), formatter);
 		email = st.nextElement().toString();
 		phoneNumber = st.nextElement().toString();
-		creditCardNumber = st.nextElement().toString();
 
-		Person p = new Person(firstName, serName, passportNumber, birthDay, email, phoneNumber, creditCardNumber);
+		Person p = new Person(firstName, serName, passportNumber, birthDay, email, phoneNumber);
 		return p;
 	}
 
